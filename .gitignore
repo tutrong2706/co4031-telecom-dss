@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large raw datasets (track folders with .gitkeep)
+# Uncomment if raw data files are > 50MB
+# data/raw/*.csv
+# data/raw/*.parquet
+# !data/raw/.gitkeep
