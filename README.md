@@ -15,24 +15,25 @@ Hệ thống **Telecom DSS** là giải pháp hỗ trợ ra quyết định toà
 3. **User Interface / DSS Dashboard**: Giao diện trực quan hóa **Streamlit** hỗ trợ phân tích đa chiều OLAP (Drill-down, Slice/Dice) và mô phỏng chính sách (**What-If Analysis**).
 
 ```mermaid
-graph LR
-    subgraph Data Sources [1. Nguồn Dữ Liệu Thô]
+flowchart LR
+    subgraph SRC ["1. Nguồn Dữ Liệu Thô"]
         S1["telecom_customer_churn.csv<br/>(CRM, 7,043 rows)"]
         S2["telecom_customer_locations.csv<br/>(GIS/Branch, 7,043 rows)"]
     end
 
-    subgraph Data Warehouse [2. PostgreSQL Data Warehouse]
+    subgraph DW ["2. PostgreSQL Data Warehouse"]
         STG["staging (Vùng đệm)"]
         EDW["edw (Star Schema - Surrogate Keys)"]
         MARTS["Views & Data Marts"]
     end
 
-    subgraph DSS Applications [3. Ứng Dụng Hỗ Trợ Ra Quyết Định]
+    subgraph DSS ["3. Ứng Dụng Hỗ Trợ Ra Quyết Định"]
         ML["Machine Learning (MBMS)"]
         BI["Streamlit BI Dashboard (OLAP / What-If)"]
     end
 
-    Data Sources -->|ETL Pipeline| STG
+    S1 -->|Extract| STG
+    S2 -->|Extract| STG
     STG -->|Transform & Cleansing| EDW
     EDW --> MARTS
     MARTS --> ML
