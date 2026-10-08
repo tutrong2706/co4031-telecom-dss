@@ -12,16 +12,16 @@
 
 ## 2. QUY TRÌNH PHỐI HỢP 3 VAI TRÒ (3 AGENTS)
 Luôn tuân thủ thứ tự làm việc và tài liệu hướng dẫn chi tiết tại:
-- **Data Engineer Agent**: Xem [agents/data_engineer_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/agents/data_engineer_agent.md)
+- **Data Engineer Agent**: Xem [docs/roles/data_engineer_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/docs/roles/data_engineer_agent.md)
   - Kiến trúc DW 3 tầng (Inmon), Grain ở mức Atomic, Staging Table, Star Schema với **Surrogate Keys** cho Dim Tables.
-  - Viết DDL (`sql/ddl/`), Pipeline ETL (`etl/`), xuất SQL Views (`sql/views/`).
-- **ML Engineer Agent**: Xem [agents/ml_engineer_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/agents/ml_engineer_agent.md)
+  - Viết DDL (`sql/ddl/`), Pipeline ETL (`etl/`), xuất SQL Views (`sql/views/` hoặc `data/processed/`).
+- **ML Engineer Agent**: Xem [docs/roles/ml_engineer_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/docs/roles/ml_engineer_agent.md)
   - Đọc dữ liệu ĐỘC QUYỀN từ SQL Views / Data Marts do Data Engineer xuất (không đọc raw file chưa qua DW).
   - Đạt chuẩn 3 bài toán: Churn Classification, K-Means Clustering, CLV Regression. Đóng gói file `.pkl`.
-- **Backend & Dashboard Agent**: Xem [agents/backend_dashboard_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/agents/backend_dashboard_agent.md)
+- **Backend & Dashboard Agent**: Xem [docs/roles/backend_dashboard_agent.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/docs/roles/backend_dashboard_agent.md)
   - Xây dựng Streamlit Dashboard + API tích hợp DW và ML models. Hỗ trợ OLAP (Drill-down, Slice/Dice) và What-If Analysis.
-- **Workflow & Quality Gates**: Xem [skills/co4031_project_workflow_skill.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/skills/co4031_project_workflow_skill.md)
+- **Workflow & Quality Gates**: Xem [docs/roles/co4031_project_workflow_skill.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/docs/roles/co4031_project_workflow_skill.md)
 
-## 3. CHECKPOINTS & TIẾN ĐỘ HIỆN TẠI
+## 3. CHECKPOINTS & TIẾN ĐỘ
 Theo dõi chi tiết các task tại [checkpoints.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/checkpoints.md).
-Hiện tại đang ở **Task 1: Khảo sát & Khám phá dữ liệu thô (Data Profiling)** trên nhánh `feature/data-engineering`.
+Đã hoàn thành Phase 1 (Data Engineering) và sẵn sàng chuyển sang Phase 2 (Machine Learning).

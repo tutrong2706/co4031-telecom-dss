@@ -3,14 +3,14 @@
 > **Trường Đại học Bách Khoa TP.HCM (HCMUT) - Khoa Khoa học & Kỹ thuật Máy tính**  
 > **Môn học**: Kho dữ liệu và Hệ hỗ trợ ra quyết định (CO4031)  
 > **Repository**: [tutrong2706/co4031-telecom-dss](https://github.com/tutrong2706/co4031-telecom-dss)  
-> **Nhánh làm việc**: `feature/data-engineering`
+> **Nhánh làm việc**: `main` / `feature/data-engineering`
 
 ---
 
 ## 📖 1. TỔNG QUAN DỰ ÁN (PROJECT OVERVIEW)
 
 Hệ thống **Telecom DSS** là giải pháp hỗ trợ ra quyết định toàn diện cho doanh nghiệp viễn thông, được xây dựng theo kiến trúc 3 thành phần tiêu chuẩn:
-1. **DBMS / Data Warehouse (EDW)**: Kho dữ liệu trung tâm thiết kế theo mô hình đa chiều **Star Schema** (Inmon 3-tier + Kimball modeling) trên **PostgreSQL 18**.
+1. **DBMS / Data Warehouse (EDW)**: Kho dữ liệu trung tâm thiết kế theo mô hình đa chiều **Star Schema** (Inmon 3-tier + Ralph Kimball modeling) trên **PostgreSQL 18**.
 2. **MBMS (Model Management)**: 3 mô hình khai phá dữ liệu & học máy (Phân loại Churn, Phân cụm Khách hàng K-Means, Dự báo Giá trị vòng đời CLV).
 3. **User Interface / DSS Dashboard**: Giao diện trực quan hóa **Streamlit** hỗ trợ phân tích đa chiều OLAP (Drill-down, Slice/Dice) và mô phỏng chính sách (**What-If Analysis**).
 
@@ -41,63 +41,51 @@ graph LR
 
 ---
 
-## 🗂️ 2. CẤU TRÚC THƯ MỤC VÀ CHI TIẾT CÁC FILE CODE
+## 🗂️ 2. CẤU TRÚC THƯ MỤC DỰ ÁN (PROJECT STRUCTURE)
 
 ```text
 co4031-telecom-dss/
-├── data/
-│   ├── raw/                               # Chứa dữ liệu thô ban đầu (2 nguồn)
-│   │   ├── telecom_customer_churn.csv     # Nguồn 1: Thuộc tính thuê bao, dịch vụ, hợp đồng, cước phí, Churn
-│   │   └── telecom_customer_locations.csv # Nguồn 2: Dữ liệu phân cấp địa lý, vùng, tọa độ GPS
-│   └── processed/                         # Chứa dữ liệu sạch đã xuất từ Data Marts
-│       ├── telecom_bi_churn_analytics.csv # File dữ liệu phục vụ BI Dashboard
-│       └── telecom_ml_feature_store.csv   # File tập đặc trưng sạch phục vụ 3 bài toán ML
+├── data/                                  # Dữ liệu phục vụ dự án
+│   ├── raw/                               # Dữ liệu thô ban đầu (CRM + GIS)
+│   └── processed/                         # Dữ liệu sạch đã xuất từ Data Marts phục vụ ML/BI
 │
-├── sql/
-│   └── ddl/                               # Tập kịch bản DDL khởi tạo cơ sở dữ liệu
-│       ├── 01_staging_schema.sql          # DDL tạo Schema `staging` và 2 bảng lưu tạm dữ liệu thô
-│       ├── 02_dw_star_schema.sql          # DDL tạo Schema `edw` gồm 5 bảng Dimension (Surrogate Keys) & 1 bảng Fact
-│       └── 03_indexes_and_views.sql       # DDL tạo B-Tree Indexes và 2 Views/Data Marts chuẩn hóa
+├── sql/                                   # Kịch bản DDL Cơ sở dữ liệu
+│   ├── ddl/                               # 01_staging_schema.sql, 02_dw_star_schema.sql, 03_indexes_and_views.sql
+│   └── views/                             # SQL Views nghiệp vụ
 │
-├── etl/
-│   └── etl_pipeline.py                    # Script chạy toàn bộ pipeline ETL tự động (Extract -> Transform -> Load -> Audit)
+├── etl/                                   # Quy trình ETL tự động hóa
+│   └── etl_pipeline.py                    # Script chạy toàn bộ pipeline ETL (Extract -> Transform -> Load -> Audit)
 │
-├── scripts/                               # Các script tiện ích hỗ trợ vận hành
-│   ├── data_profiling.py                  # Script khảo sát EDA, kiểm tra chất lượng dữ liệu thô
-│   ├── db_manager.py                      # Module quản lý kết nối, tự động tạo DB `telecom_dw` và thực thi DDL
-│   ├── test_postgres_connection.py        # Script kiểm tra kết nối PostgreSQL và hỗ trợ dò/lưu mật khẩu vào .env
-│   ├── verify_db_schema.py                # Script kiểm tra cấu trúc bảng, khóa ngoại (FK) trong PostgreSQL
-│   └── export_data_marts.py               # Script xuất dữ liệu từ SQL Views ra file CSV trong data/processed/
+├── models/                                # Huấn luyện mô hình Machine Learning (Phase 2)
+│
+├── app/                                   # Giao diện Streamlit DSS Dashboard & What-If (Phase 3)
+│
+├── scripts/                               # Các công cụ tiện ích hỗ trợ
+│   ├── data_profiling.py                  # Script khảo sát EDA & kiểm định chất lượng dữ liệu thô
+│   ├── db_manager.py                      # Tự động tạo DB telecom_dw và khởi tạo DDL
+│   ├── test_postgres_connection.py        # Kiểm tra kết nối & cấu hình mật khẩu DB
+│   ├── verify_db_schema.py                # Kiểm tra cấu trúc bảng & khóa ngoại trong DB
+│   └── export_data_marts.py               # Xuất Views ra file CSV trong data/processed/
 │
 ├── docs/                                  # Toàn bộ tài liệu báo cáo & đặc tả kỹ thuật
 │   ├── data_profiling_report.md           # Báo cáo đánh giá chất lượng dữ liệu thô (Task 1)
-│   ├── data_dictionary.md                 # Từ điển dữ liệu thô giải thích chi tiết từng trường
-│   ├── dimensional_modeling_design.md     # Tài liệu thiết kế 4 bước Kimball, Bus Matrix, ERD Star Schema (Task 2)
-│   ├── data_lineage_and_metadata.md       # Sơ đồ dòng chảy dữ liệu End-to-End & Metadata Catalog
+│   ├── data_dictionary.md                 # Từ điển dữ liệu giải thích ý nghĩa từng trường
+│   ├── dimensional_modeling_design.md     # Tài liệu thiết kế 4 bước Kimball, Bus Matrix & ERD (Task 2)
+│   ├── data_lineage_and_metadata.md       # Sơ đồ dòng chảy dữ liệu End-to-End & Metadata
 │   ├── data_marts_handoff.md              # Biên bản bàn giao Data Mart cho team ML & Dashboard (Task 5)
-│   └── data_engineering_report.md         # Báo cáo chuyên đề Data Engineering phục vụ nộp bài BTL
+│   ├── data_engineering_report.md         # Báo cáo chuyên đề Data Engineering (Task 6)
+│   └── roles/                             # Tài liệu quy chuẩn cho từng vai trò (Data, ML, Dashboard)
 │
-├── agents/                                # Hướng dẫn & tri thức môn học cho từng vai trò
-│   ├── data_engineer_agent.md             # Quy chuẩn thiết kế DW, Surrogate Keys, ETL 3 tầng
-│   ├── ml_engineer_agent.md               # Quy chuẩn 3 bài toán ML (Churn, Segmentation, CLV)
-│   └── backend_dashboard_agent.md         # Quy chuẩn xây dựng Streamlit Dashboard & OLAP/What-If
-│
-├── skills/
-│   └── co4031_project_workflow_skill.md   # Quy cách nộp bài, Branching Git, Quality Gates
-│
-├── checkpoints.md                         # Bảng theo dõi tiến độ chi tiết 6 tasks của đồ án
-├── requirements.txt                       # Danh mục các thư viện Python cần thiết
-├── .env.example                           # File cấu hình mẫu môi trường Database
-├── .env                                   # File chứa thông tin mật khẩu DB (Đã được gitignore)
+├── checkpoints.md                         # Checklist theo dõi tiến độ các task
+├── requirements.txt                       # Danh mục các thư viện Python
+├── .env.example                           # Mẫu cấu hình biến môi trường Database
 ├── .gitignore                             # Cấu hình loại trừ cache, env, venv
-└── README.md                              # Tài liệu hướng dẫn tổng quan dự án
+└── README.md                              # Tài liệu hướng dẫn trang chủ
 ```
 
 ---
 
-## 🛠️ 3. MÔ TẢ CHI TIẾT TỪNG FILE CODE VÀ CHỨC NĂNG
-
-### 📌 Nhóm Script ETL & Quản lý Database:
+## 🛠️ 3. MÔ TẢ CHI TIẾT CÁC FILE CODE VÀ CHỨC NĂNG
 
 1. **[`etl/etl_pipeline.py`](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/etl/etl_pipeline.py)**:
    - **Extract**: Đọc dữ liệu từ 2 nguồn CSV và nạp trung gian vào schema `staging`.
@@ -122,13 +110,13 @@ co4031-telecom-dss/
 
 ## 🚀 4. HƯỚNG DẪN CÀI ĐẶT VÀ CHẠY DỰ ÁN
 
-### Bước 1: Cài đặt môi trường Python
+### Bước 1: Cài đặt thư viện Python
 ```bash
 pip install -r requirements.txt
 ```
 
-### Bước 2: Cấu hình thông tin PostgreSQL trong file `.env`
-Tạo file `.env` (hoặc sao chép từ `.env.example`) và điền mật khẩu PostgreSQL của bạn:
+### Bước 2: Cấu hình PostgreSQL trong file `.env`
+Tạo file `.env` (hoặc copy từ `.env.example`) và điền thông tin:
 ```env
 DB_HOST=localhost
 DB_PORT=5432
@@ -154,7 +142,7 @@ python scripts/export_data_marts.py
 
 ---
 
-## 📊 5. TIẾN ĐỘ THỰC HIỆN THEO CHECKPOINTS
+## 📊 5. TIẾN ĐỘ THỰC HIỆN (CHECKPOINTS)
 
 Xem chi tiết tiến độ tại file [checkpoints.md](file:///c:/Users/Admin/Desktop/Education/Year%204/HK261/Data%20Warehouse/telecom/co4031-telecom-dss/checkpoints.md):
 - [x] **Task 1**: Khảo sát & Khám phá dữ liệu thô (Data Profiling) - *Hoàn thành*
