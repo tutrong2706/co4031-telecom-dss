@@ -1,0 +1,17 @@
+{
+  "layer_type": "decision_layer_on_churn_model",
+  "weights": {
+    "churn_risk": 0.8,
+    "monthly_value": 0.12,
+    "contract_opportunity": 0.04,
+    "service_opportunity": 0.04
+  },
+  "contract_opportunity": {
+    "Month-to-month": 1.0,
+    "One year": 0.6,
+    "Two year": 0.3
+  },
+  "service_opportunity": "1 - total_active_addons / max_total_active_addons",
+  "evaluation": "5-fold out-of-fold probabilities",
+  "campaign_benefit": "not_calculated_without_campaign_cost_and_treatment_outcome"
+}

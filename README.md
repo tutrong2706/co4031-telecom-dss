@@ -3,7 +3,7 @@
 > **Trường Đại học Bách Khoa TP.HCM (HCMUT) - Khoa Khoa học & Kỹ thuật Máy tính**  
 > **Môn học**: Kho dữ liệu và Hệ hỗ trợ ra quyết định (CO4031)  
 > **Repository**: [tutrong2706/co4031-telecom-dss](https://github.com/tutrong2706/co4031-telecom-dss)  
-> **Nhánh làm việc**: `main` / `feature/data-engineering`
+> **Nhánh làm việc**: `feature/ml-models`
 
 ---
 
@@ -11,7 +11,7 @@
 
 Hệ thống **Telecom DSS** là giải pháp hỗ trợ ra quyết định toàn diện cho doanh nghiệp viễn thông, được xây dựng theo kiến trúc 3 thành phần tiêu chuẩn:
 1. **DBMS / Data Warehouse (EDW)**: Kho dữ liệu trung tâm thiết kế theo mô hình đa chiều **Star Schema** (Inmon 3-tier + Ralph Kimball modeling) trên **PostgreSQL 18**.
-2. **MBMS (Model Management)**: 3 mô hình khai phá dữ liệu & học máy (Phân loại Churn, Phân cụm Khách hàng K-Means, Dự báo Giá trị vòng đời CLV).
+2. **MBMS (Model Management)**: 3 thành phần phân tích (Phân loại Churn, Phân cụm Khách hàng K-Means, Churn Risk Scoring & Retention Prioritization).
 3. **User Interface / DSS Dashboard**: Giao diện trực quan hóa **Streamlit** hỗ trợ phân tích đa chiều OLAP (Drill-down, Slice/Dice) và mô phỏng chính sách (**What-If Analysis**).
 
 ```mermaid

@@ -217,5 +217,5 @@ erDiagram
 3. **Phục vụ trọn vẹn cho ML & BI**:
    - Classification: Cung cấp đầy đủ biến nhân khẩu học, dịch vụ, hợp đồng và cờ `churn_flag`.
    - Clustering: Cung cấp các đặc trưng số (`tenure_months`, `monthly_charges`, `total_active_addons`, `total_charges`).
-   - Regression: Cung cấp biến mục tiêu cước phí (`monthly_charges`, `total_charges`, `clv_proxy`).
+   - Retention Prioritization: Cung cấp churn probability từ Model 1 kết hợp với `monthly_charges`, `contract_type` và `total_active_addons` để xếp hạng khách hàng cần can thiệp.
    - BI Dashboard: Dễ dàng thực hiện các thao tác OLAP (Drill-down theo Vùng $\rightarrow$ Thành phố, Slice/Dice theo Hợp đồng và Dịch vụ).

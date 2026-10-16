@@ -14,7 +14,7 @@
   - 100% không còn ô rỗng / khoảng trắng.
   - Cột nhị phân đã chuyển thành `True/False`.
   - Biến mục tiêu: `churn_flag` (0: Ở lại, 1: Rời mạng).
-  - Các biến số liên tục phục vụ Clustering & CLV: `tenure_months`, `monthly_charges`, `total_charges`, `avg_charges_per_tenure`, `clv_proxy`, `total_active_addons`.
+  - Các biến số liên tục phục vụ Clustering & Retention Prioritization: `tenure_months`, `monthly_charges`, `total_charges`, `avg_charges_per_tenure`, `clv_proxy`, `total_active_addons`.
 
 ---
 
