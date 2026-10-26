@@ -35,8 +35,8 @@ graph TD
   - [x] Bảng Fact liên kết chuẩn FK tới các Dim.
   - [x] Không để Agent ML đọc file CSV thô trực tiếp mà phải qua SQL Views / Data Marts chuẩn hóa.
 - **Machine Learning**:
-  - [x] Đáp ứng đủ 3 bài toán: Classification (Churn), Clustering (Segmentation), Prediction/Regression (CLV/Billing).
-  - [x] Đánh giá đầy đủ metrics (Accuracy, F1, AUC, Silhouette, RMSE).
+  - [x] Đáp ứng đủ 3 bài toán: Classification (Churn), Clustering (Segmentation), Decision Analytics (Churn Risk Scoring & Retention Prioritization).
+  - [x] Đánh giá đầy đủ metrics (Accuracy, F1, AUC, Silhouette, Precision@K, Recall@K, Lift@K).
   - [x] Đóng gói model `.pkl` cho UI gọi.
 - **Backend & Dashboard**:
   - [x] Hỗ trợ thao tác phân tích OLAP (Drill-down, Slice/Dice).

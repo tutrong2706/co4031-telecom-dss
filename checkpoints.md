@@ -1,6 +1,6 @@
 # 📌 Tiến độ Dự án CO4031 - Data Warehouse & Telecom DSS
 
-Nhánh làm việc: `feature/data-engineering`  
+Nhánh làm việc: `feature/ml-models`  
 Repository: `https://github.com/tutrong2706/co4031-telecom-dss`
 
 ---
@@ -44,17 +44,25 @@ Repository: `https://github.com/tutrong2706/co4031-telecom-dss`
 ### 📊 Task 5: Xuất Data Marts & Views bàn giao cho thành viên ML và Dashboard
 - [x] 5.1 Thiết kế và tạo Views / Data Marts phục vụ BI Dashboard (`edw.vw_bi_churn_analytics`).
 - [x] 5.2 Chuẩn bị Feature Store / View phục vụ ML Churn Prediction (`edw.vw_ml_feature_store`).
-- [x] 5.3 Chuẩn bị Feature Store / View phục vụ ML Customer Segmentation / CLV.
+- [x] 5.3 Chuẩn bị Feature Store / View phục vụ ML Customer Segmentation / Retention Prioritization.
 - [x] 5.4 Xuất dữ liệu sạch (`data/processed/telecom_bi_churn_analytics.csv`, `data/processed/telecom_ml_feature_store.csv`) và tài liệu bàn giao tại `docs/data_marts_handoff.md`.
 
 ---
 
-### 📝 Task 6: Quản lý Metadata, Git & Viết Báo cáo chuyên đề
-- [x] 6.1 Quản lý phiên bản mã nguồn, commit rõ ràng theo Git flow trên nhánh `feature/data-engineering`.
-- [x] 6.2 Hoàn thiện Data Lineage & Metadata Catalog tại `docs/data_lineage_and_metadata.md`.
-- [x] 6.3 Viết báo cáo chuyên đề phần Data Engineering tại `docs/data_engineering_report.md`.
-- [ ] 6.4 Tạo Pull Request merge vào `dev` / `main` sau khi nhóm review.
+### 🧠 Task 6: Huấn luyện & Đánh giá các Mô hình Machine Learning (MBMS - Phase 2)
+- [x] 6.1 Xây dựng module dùng chung `models/utils.py` xử lý mã hóa One-Hot, StandardScaler và đóng gói preprocessor.
+- [x] 6.2 **Model 1 (Churn Classification)**: Huấn luyện Decision Tree, Random Forest, Gradient Boosting (`models/churn_classification.py`). Đạt **ROC-AUC = 0.8398**, **Recall = 75.67%**. Đóng gói `models/saved/churn_model.pkl` & viết đặc tả [`docs/model_01_churn_classification.md`](file:///c:/Users/Admin/Documents/HocTap/University/261/DW%20&%20DSS/Assignment/co4031-telecom-dss/docs/model_01_churn_classification.md).
+- [x] 6.3 **Model 2 (Customer Segmentation)**: Huấn luyện K-Means Clustering $k=4$ (`models/customer_segmentation.py`). Đạt **Silhouette Score = 0.2231**, chia 4 cụm khách hàng rõ nét. Đóng gói `models/saved/kmeans_model.pkl` & viết đặc tả [`docs/model_02_customer_segmentation.md`](file:///c:/Users/Admin/Documents/HocTap/University/261/DW%20&%20DSS/Assignment/co4031-telecom-dss/docs/model_02_customer_segmentation.md).
+- [x] 6.4 **Model 3 (Churn Risk Scoring & Retention Prioritization)**: Xây dựng decision layer trên churn probability của Model 1, kết hợp `monthly_charges`, `contract_type` và `total_active_addons` để xếp hạng ưu tiên retention (`models/churn_risk_prioritization.py`). Đánh giá bằng Precision@K, Recall@K và Lift@K trên 5-fold out-of-fold probabilities; xuất `models/evaluation/churn_priority_scores.csv`, `models/evaluation/churn_priority_metrics.csv` và viết đặc tả [`docs/model_03_churn_risk_prioritization.md`](file:///c:/Users/Admin/Documents/HocTap/University/261/DW%20&%20DSS/Assignment/co4031-telecom-dss/docs/model_03_churn_risk_prioritization.md).
+- [x] 6.5 Hoàn thiện tài liệu tổng hợp MBMS tại [`docs/ml_modeling_report.md`](file:///c:/Users/Admin/Documents/HocTap/University/261/DW%20&%20DSS/Assignment/co4031-telecom-dss/docs/ml_modeling_report.md).
 
 ---
 
-*Cập nhật lần cuối: 2026-10-08 | Hoàn tất Phase 1 (Data Engineering) 100%*
+### 🖥️ Task 7: Xây dựng Giao diện Streamlit DSS Dashboard & What-If Analysis (Phase 3)
+- [ ] 7.1 Xây dựng Streamlit app (`app/main.py` hoặc `app/app.py`).
+- [ ] 7.2 Tích hợp OLAP Drill-down & Slice/Dice theo vùng miền, dịch vụ, hợp đồng.
+- [ ] 7.3 Tích hợp mô phỏng What-If Analysis dùng các model ML đã đóng gói.
+
+---
+
+*Cập nhật lần cuối: 2026-10-16 | Hoàn tất Phase 1 và cập nhật thiết kế Phase 2 theo giới hạn dữ liệu hiện có*

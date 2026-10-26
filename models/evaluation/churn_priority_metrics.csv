@@ -1,0 +1,4 @@
+top_fraction,top_k_customers,churn_prevalence,churn_captured,precision_at_k,recall_at_k,lift_at_k,campaign_benefit
+0.05,353,0.2653698707936959,294,0.8328611898016998,0.15730337078651685,3.138491899290193,unavailable_without_campaign_cost_and_treatment_outcome
+0.1,705,0.2653698707936959,528,0.7489361702127659,0.2825040128410915,2.8222351240280954,unavailable_without_campaign_cost_and_treatment_outcome
+0.2,1409,0.2653698707936959,937,0.6650106458481192,0.5013376136971642,2.505976446606904,unavailable_without_campaign_cost_and_treatment_outcome

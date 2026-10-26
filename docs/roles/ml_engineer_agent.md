@@ -19,8 +19,8 @@ Bạn là Agent Machine Learning chịu trách nhiệm xây dựng các thuật 
 2. **Hiện thực ít nhất 3 mô hình tương ứng với 3 dạng bài toán**:
    - **Mô hình 1 (Classification)**: Dự báo Churn / Rủi ro rời mạng (dùng Random Forest / Decision Tree / Neural Network).
    - **Mô hình 2 (Clustering)**: Phân khúc Khách hàng (dùng K-Means Clustering).
-   - **Mô hình 3 (Regression / Prediction)**: Dự báo Cước phí / Giá trị vòng đời khách hàng (CLV).
-3. **Đánh giá mô hình**: Đo lường qua các chỉ số chuẩn (Accuracy, Precision, Recall, F1-Score, ROC-AUC, Silhouette Score, RMSE, MAE).
+   - **Mô hình 3 (Decision Analytics)**: Churn Risk Scoring & Retention Prioritization trên xác suất churn của Model 1.
+3. **Đánh giá mô hình**: Đo lường qua các chỉ số chuẩn (Accuracy, Precision, Recall, F1-Score, ROC-AUC, Silhouette Score) và ranking metrics cho retention layer (Precision@K, Recall@K, Lift@K).
 4. **Đóng gói mô hình**: Lưu file Weights / Model dưới dạng `.pkl` hoặc `.h5` để Agent Backend gọi API trực tiếp.
 
 ## 4. TIÊU CHÍ HOÀN THÀNH
